@@ -1,8 +1,8 @@
-import ProductList from "@/components/Landing/ProductList";
+import Checkout from "@/components/Checkout";
 import Layout from "@/layout";
 import Head from "next/head";
 
-export default function Home() {
+export default function CheckoutPage() {
   return (
     <>
       <Head>
@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <ProductList />
+        <Checkout />
       </Layout>
     </>
   );

@@ -1,8 +1,9 @@
+import Details from "@/components/Details";
 import ProductList from "@/components/Landing/ProductList";
 import Layout from "@/layout";
 import Head from "next/head";
 
-export default function Home() {
+export default function DetailsPage() {
   return (
     <>
       <Head>
@@ -12,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <ProductList />
+        <Details />
       </Layout>
     </>
   );
