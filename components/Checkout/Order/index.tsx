@@ -25,7 +25,7 @@ const Order = () => {
       <Title>Carrinho</Title>
 
       {cart.map((item: Item) => (
-        <ProductCheckout item={item} />
+        <ProductCheckout key={item.id} item={item} />
       ))}
 
       <Divider />
