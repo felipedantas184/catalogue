@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 const Order = () => {
   const cart = useSelector((state: any) => state.cart);
+  const totalPrice = cart.reduce((acc:any, curr:any) => acc + curr.price, 0)
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart))
@@ -35,11 +36,11 @@ const Order = () => {
       </TopicWrapper>
       <TopicWrapper>
         <Topic>Total de itens</Topic>
-        <Span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(120)}</Span>
+        <Span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(totalPrice)}</Span>
       </TopicWrapper>
       <TopicWrapper>
         <TopicBold>Valor Total</TopicBold>
-        <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(120)}</SpanBold>
+        <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(totalPrice)}</SpanBold>
       </TopicWrapper>
     </Wrapper>
   );
