@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
 import ProductCheckout from "../ProductCheckout";
 import { Divider, Span, SpanBold, Title, Topic, TopicBold, TopicWrapper, Wrapper } from "./styles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Order = () => {
   const cart = useSelector((state: any) => state.cart);
-  const totalPrice = cart.reduce((acc:any, curr:any) => acc + curr.price, 0)
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart))
@@ -36,11 +35,11 @@ const Order = () => {
       </TopicWrapper>
       <TopicWrapper>
         <Topic>Total de itens</Topic>
-        <Span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(totalPrice)}</Span>
+        <Span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0))}</Span>
       </TopicWrapper>
       <TopicWrapper>
         <TopicBold>Valor Total</TopicBold>
-        <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(totalPrice)}</SpanBold>
+        <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0))}</SpanBold>
       </TopicWrapper>
     </Wrapper>
   );

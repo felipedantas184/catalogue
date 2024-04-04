@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Brand, Buttons, ImageWrapper, Price, Product, QntButton, TextWrapper, Title } from "./styles";
 import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { decrementQuantity, incrementQuantity } from "@/redux/cart.slice";
 
 type Item = {
   item: {
@@ -15,6 +17,8 @@ type Item = {
 }
 
 const ProductCheckout = ({item} : Item) => {
+  const dispatch = useDispatch();
+
   return (
     <Product>
       <ImageWrapper href={'/'}>
@@ -25,9 +29,9 @@ const ProductCheckout = ({item} : Item) => {
         <Title>{item.title}</Title>
         <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(item.price)}</Price>
         <Buttons>
-          <QntButton><FaMinusCircle size={16} color='#13131A' /></QntButton>
+          <QntButton onClick={() => dispatch(decrementQuantity(item.id))}><FaMinusCircle size={16} color='#13131A' /></QntButton>
           <p>{item.quantity}</p>
-          <QntButton><FaPlusCircle size={16} color='#13131A' /></QntButton>
+          <QntButton onClick={() => dispatch(incrementQuantity(item.id))}><FaPlusCircle size={16} color='#13131A' /></QntButton>
         </Buttons>
       </TextWrapper>
     </Product>

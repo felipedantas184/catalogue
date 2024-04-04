@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 const Form = () => {
   const cart = useSelector((state: any) => state.cart);
+  const [totalPrice, setTotalPrice] = useState(cart.reduce((acc:any, curr:any) => acc + curr.price, 0));
 
   const [delivery, setDelivery] = useState({
     zipCode: '',
@@ -24,7 +25,11 @@ const Form = () => {
     cpf: '',
   })
   const [mesage, setMesage] = useState('');
-
+  
+  useEffect(() => {
+    const newTotalPrice = cart.reduce((acc:any, curr:any) => acc + curr.price, 0)
+    setTotalPrice(newTotalPrice)
+  }, [cart])
 
 	useEffect(() => {
     var deliveryMesageComposure = '*_Informações da Entrega:_*%0A' + delivery.address + ', ' + delivery.number + ' - ' + delivery.complement + '%0A' + delivery.zipCode + '%0A' + delivery.city + ', ' + delivery.state 
