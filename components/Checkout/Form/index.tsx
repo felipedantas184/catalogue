@@ -75,6 +75,7 @@ const Form = () => {
         cart: cartOrder,
         delivery: delivery,
         paymentMethod: paymentMethod,
+        amount: cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0),
       }).then(
         cart.map((item: any) => (
           dispatch(removeFromCart(item))
@@ -98,7 +99,7 @@ const Form = () => {
       <Divider />
       <TopicWrapper>
         <Topic>Total</Topic>
-        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(120)}</Price>
+        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0))}</Price>
       </TopicWrapper>
       <CheckoutButton type="submit" >Adicionar Pedido</CheckoutButton>
       <a href={`https://wa.me//5586995185757?text=${mesage}`}>Bora
