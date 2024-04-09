@@ -25,10 +25,7 @@ const Cart = ({ cartOpen, toggleCart }: any) => {
         <TextWrapper>
           <Title>Carrinho</Title>
           {cart.map((item: Item) => (
-            <>
-              <ProductCheckout key={item.id} item={item} />
-              <Divider />
-            </>
+            <ProductCheckout key={item.id} item={item} />
           ))}
         </TextWrapper>
 
@@ -37,7 +34,7 @@ const Cart = ({ cartOpen, toggleCart }: any) => {
             <Topic>Total</Topic>
             <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0))}</Price>
           </TopicWrapper>
-          <CheckoutButton type="submit" >Adicionar Pedido</CheckoutButton>
+          <CheckoutButton href={'/checkout'} >Adicionar Pedido</CheckoutButton>
         </TextWrapper>
       </Wrapper>
     </Container>

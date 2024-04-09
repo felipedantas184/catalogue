@@ -26,6 +26,8 @@ export const ImageWrapper = styled.div`
   border-radius: 0 0 20px 20px;
   overflow: hidden;
 
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
   > div {
     position: unset !important;
   }

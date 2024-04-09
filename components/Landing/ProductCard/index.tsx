@@ -26,7 +26,7 @@ const ProductCard = ({product} : Product) => {
   return ( 
     <Card>
       <ImageWrapper href={`/produto/${product.id}`}>
-        <Image src={product.imageUrl} alt={product.title} fill className={'image'} />
+        <Image src={product.imageUrl} alt={product.title} fill sizes="(max-width: 384px)" className={'image'} />
       </ImageWrapper>
       <TextWrapper href={'/produto'}>
         <Brand>{product.brand}</Brand>

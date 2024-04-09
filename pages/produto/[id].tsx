@@ -1,16 +1,21 @@
 import Details from "@/components/Details";
 import { Products } from "@/database/products";
+import fireDB from "@/firebase/initFirebase";
 import Layout from "@/layout"
+import { doc, getDoc } from "firebase/firestore";
 import Head from "next/head";
 
 export const getServerSideProps = async (context: any) => {
   const id = context.params.id;
-  const data = Products.filter((product) => product.id == id);
-  const product = data[0]
-
+  const data = await getDoc(doc(fireDB, "products", id));
+  const product = data.data()
+  if (product !== undefined) {
+    product.id = id
+  }
+  
   return {
     props: {
-      product,
+      product: product,
     }
   }
 }
@@ -22,12 +27,12 @@ type Product = {
     brand: string,
     imageUrl: string,
     description: string,
-    price: number
+    price: number,
+    stock: number,
   }
 }
 
 export default function ProductsPage({product} : Product) {
-
   return (
     <>
       <Head>

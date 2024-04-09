@@ -1,6 +1,6 @@
 import { InputWrapper, Label, Option, Select } from "./styles";
 
-const Payment = () => {
+const Payment = ({paymentMethod, setPaymentMethod}: any) => {
   return (
     <InputWrapper>
       <Label>Forma de Pagamento</Label>

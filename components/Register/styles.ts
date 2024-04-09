@@ -1,32 +1,34 @@
-import Link from "next/link";
 import styled from "styled-components";
 
-interface Props {
-  cartOpen: any
-}
-
-export const Container = styled.nav<Props>`
-  background: #F1F1F1;
-  padding: 50px 0;
-
-  display: flex;
-	flex-direction: column;
-	align-items: center;
-  
-  top: 0;
-  left: 0;
-  position: fixed;
-  z-index: 999;
-  width: 100vw;
-  height: 100vh;
-
-  opacity: ${({ cartOpen }) => (cartOpen ? '100%' : '0')};
-  left: ${({ cartOpen }) => (cartOpen ? '0' : '100%')};
-  transition: 0.7s ease-in-out;
+export const Section = styled.section`
+  background-color: #F6F6F6;
+  padding: 25px 0;
 `
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  max-width: 1080px;
+  padding: 0 16px;
+	margin-left: auto;
+	margin-right: auto;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 8px;
+  }
+`
+export const Title = styled.h1`
+  color: #13131A;
+  font-size: 20px;
+  font-weight: 600;
+  align-self: flex-start;
+  margin-bottom: 8px;
+`
+export const Form = styled.form`
+  width: 100%;
   max-width: 1080px;
   padding: 8px;
 	margin-left: auto;
@@ -36,57 +38,66 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
+  gap: 12px;
 `
-export const Close = styled.div`
-  position: absolute;
-  top: 1.2rem;
-  right: 1.5rem;
-  background: transparent;
-  font-size: 2rem;
-  cursor: pointer;
-  outline: none;
-
-  -webkit-tap-highlight-color: transparent;
-  user-select: none
-`
-export const Title = styled.h1`
-  color: #13131A;
-  font-size: 18px;
-  font-weight: 600;
-  align-self: flex-start;
-`
-export const Divider = styled.div`
-  width: 100%;
-  margin-top: 8px;
-  border-top: 1px solid #BBB;
-`
-export const TopicWrapper = styled.div`
-  width: 100%;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-export const TextWrapper = styled.div`
+export const InputWrapper = styled.div`
   width: 100%;
 
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+`
+export const Label = styled.label`
+  color: #13131A;
+  font-size: 14px;
+  font-weight: 500;
+`
+export const Input = styled.input`
+  width: 100%;
+  padding: 12px 8px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-family: 'Montserrat';
+  border-bottom: 1px solid #C4C4C4;
+  
+
+  ::placeholder {
+    color: #C4C4C4;
+    font-size: 14px;
+    font-weight: 600;
+  }
+`
+export const TextArea = styled.textarea`
+  width: 100%;
+  padding: 12px 8px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-family: 'Montserrat';
+  border-bottom: 1px solid #C4C4C4;
+  resize: vertical;
+  max-height: 120px;
+  min-height: 60px;
+  
+
+  ::placeholder {
+    color: #C4C4C4;
+    font-size: 14px;
+    font-weight: 600;
+  }
+`
+export const InputDoubleWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
 `
-export const Topic = styled.span`
-  color: #13131A;
-  font-size: 18px;
-  font-weight: 600;
-`
-export const Price = styled.span`
-  color: #13131A;
-  font-size: 16px;
-  font-weight: 600;
-`
-export const CheckoutButton = styled(Link)`
+export const RegistertButton = styled.button`
   width: 100%;
   min-height: 3rem;
   margin: 0;

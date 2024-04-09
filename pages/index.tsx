@@ -1,8 +1,29 @@
 import ProductList from "@/components/Landing/ProductList";
+import fireDB from "@/firebase/initFirebase";
 import Layout from "@/layout";
+import { collection, getDocs } from "firebase/firestore";
 import Head from "next/head";
 
-export default function Home() {
+export async function getServerSideProps() {
+  const DBProducts = await getDocs(collection(fireDB, "products"));
+  const products: any = []
+  DBProducts.forEach((doc) => {
+    const obj = {
+      id: doc.id,
+      ...doc.data()
+    }
+
+    products.push(obj)
+  });
+
+  return {
+    props: {
+      products
+    }
+  }
+}
+
+export default function Home({products} : any) {
   return (
     <>
       <Head>
@@ -12,7 +33,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <ProductList />
+        <ProductList products={products} />
       </Layout>
     </>
   );
