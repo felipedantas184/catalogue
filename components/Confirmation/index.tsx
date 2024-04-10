@@ -16,6 +16,7 @@ type Item = {
 
 const Confirmation = () => {
   const order = useSelector((state: any) => state.order);
+  console.log(order)
 
   return (
     <Section>
@@ -24,37 +25,46 @@ const Confirmation = () => {
           <FaCheckCircle size={48} color="#08A045" />
           <Title>Seu pedido foi enviado!</Title>
           <Subtitle>Agora é só aguardar enquanto preparamos seus produtos.</Subtitle>
-          <Subtitle>Código do pedido: <strong>{order.id}</strong></Subtitle>
+          <Subtitle>Código do pedido: <strong>{order?.lastOrder !== null ? (order?.lastOrder?.id) : ''}</strong></Subtitle>
         </TextWrapper>
         <Summary>
           <SummaryTitle>Resumo do Pedido</SummaryTitle>
-          {order.cart.map((item: Item) => (
+          {order?.lastOrder !== null ? (order?.lastOrder?.cart.map((item: Item) => (
             <ProductSummary key={item.id} item={item} />
-          ))}
+          ))) : (<></>)}
           <Divider />
           <TopicWrapper>
             <TopicBold>Valor Total</TopicBold>
-            <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order.amount)}</SpanBold>
+            <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order?.lastOrder !== null ? (order?.lastOrder?.amount) : (''))}</SpanBold>
           </TopicWrapper>
         </Summary>
         <Summary>
           <SummaryTitle>Resumo da Entrega</SummaryTitle>
-          <InfoWrapper>
-            <Topic>Cidade</Topic>
-            <Span>{order.delivery.city} - {order.delivery.state}</Span>
-          </InfoWrapper>
-          <InfoWrapper>
-            <Topic>Endereço</Topic>
-            <Span>{order.delivery.address}, {order.delivery.number} - {order.delivery.district}</Span>
-          </InfoWrapper>
-          <InfoWrapper>
-            <Topic>CEP</Topic>
-            <Span>{order.delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')}</Span>
-          </InfoWrapper>
-          <InfoWrapper>
-            <Topic>Complemento</Topic>
-            <Span>{order.delivery.complement}</Span>
-          </InfoWrapper>
+          {(order?.lastOrder !== null && order?.lastOrder?.delivery === "Retirar na Loja") ? (
+            <InfoWrapper>
+              <Topic>Retirada na Loja</Topic>
+              <Span>Clique para ver a localização da Loja</Span>
+            </InfoWrapper>
+          ) : (
+            <>
+              <InfoWrapper>
+                <Topic>Cidade</Topic>
+                <Span>{order?.lastOrder?.delivery.city} - {order?.lastOrder?.delivery.state}</Span>
+              </InfoWrapper>
+              <InfoWrapper>
+                <Topic>Endereço</Topic>
+                <Span>{order?.lastOrder?.delivery.address}, {order?.lastOrder?.delivery.number} - {order?.lastOrder?.delivery.district}</Span>
+              </InfoWrapper>
+              <InfoWrapper>
+                <Topic>CEP</Topic>
+                <Span>{order?.lastOrder?.delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')}</Span>
+              </InfoWrapper>
+              <InfoWrapper>
+                <Topic>Complemento</Topic>
+                <Span>{order?.lastOrder?.delivery.complement}</Span>
+              </InfoWrapper>
+            </>
+          )}
         </Summary>
         <Summary>
           <SummaryTitle>Resumo do Pagamento</SummaryTitle>

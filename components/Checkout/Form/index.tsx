@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Delivery from "./Delivery";
 import Payment from "./Payment";
 import Personal from "./Personal";
-import { CheckoutButton, Divider, Price, Topic, TopicWrapper, Wrapper } from "./styles";
+import { CheckoutButton, Divider, Price, RadioButtons, RadioInput, RadioLabel, Title, Topic, TopicWrapper, Wrapper } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { sendOrderEmail } from "@/lib/api";
 import { addDoc, collection } from "firebase/firestore";
@@ -10,6 +10,8 @@ import fireDB from "@/firebase/initFirebase";
 import { removeFromCart } from "@/redux/cart.slice";
 import { useRouter } from "next/router";
 import { addOrder } from "@/redux/order.slice";
+import { IoLocationSharp } from "react-icons/io5";
+import { FaTruck, FaUser, FaWallet } from "react-icons/fa6";
 
 const Form = () => {
   const cart = useSelector((state: any) => state.cart);
@@ -22,6 +24,7 @@ const Form = () => {
     phone: '',
     cpf: '',
   })
+  const [pickUp, setPickUp] = useState(true);
   const [delivery, setDelivery] = useState({
     zipCode: '',
     address: '',
@@ -74,7 +77,7 @@ const Form = () => {
       addDoc(collection(fireDB, "orders"), {
         personal: personal,
         cart: cartOrder,
-        delivery: delivery,
+        delivery: pickUp ? 'Retirar na Loja' : delivery,
         paymentMethod: paymentMethod,
         amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
       }).then(function (docRef) {
@@ -82,7 +85,7 @@ const Form = () => {
           id: docRef.id, 
           personal: personal,
           cart: cart,
-          delivery: delivery,
+          delivery: pickUp ? 'Retirar na Loja' : delivery,
           paymentMethod: paymentMethod,
           amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0)
         }))
@@ -90,7 +93,7 @@ const Form = () => {
           id: docRef.id, 
           personal: personal,
           cart: cart,
-          delivery: delivery,
+          delivery: pickUp ? 'Retirar na Loja' : delivery,
           paymentMethod: paymentMethod,
           amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0)
         }))
@@ -109,10 +112,22 @@ const Form = () => {
 
   return (
     <Wrapper onSubmit={handleOrder} >
+      <Title><FaUser />Comprador</Title>
       <Personal personal={personal} setPersonal={setPersonal} />
       <Divider />
-      <Delivery delivery={delivery} setDelivery={setDelivery} />
+      <Title><FaTruck />Entrega</Title>
+      <RadioButtons>
+        <RadioInput type="radio" name="size" id="small" checked={pickUp} />
+        <RadioLabel htmlFor="small" onClick={() => setPickUp(true)}><IoLocationSharp />Retirar na Loja</RadioLabel>
+
+        <RadioInput type="radio" name="size" id="big" checked={!pickUp} />
+        <RadioLabel htmlFor="big" onClick={() => setPickUp(false)} ><FaTruck />Entrega em Casa</RadioLabel>
+      </RadioButtons>
+      {(!pickUp) ? (
+        <Delivery delivery={delivery} setDelivery={setDelivery} />
+      ) : (<></>)}
       <Divider />
+      <Title><FaWallet />Pagamento</Title>
       <Payment paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
       <Divider />
       <TopicWrapper>

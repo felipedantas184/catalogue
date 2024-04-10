@@ -13,6 +13,16 @@ export const Wrapper = styled.form`
 	justify-content: space-between;
   gap: 12px;
 `
+export const Title = styled.h1`
+  color: #13131A;
+  font-size: 16px;
+  font-weight: 600;
+  align-self: flex-start;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`
 export const Divider = styled.div`
   width: 100%;
   margin-top: 8px;
@@ -84,4 +94,36 @@ export const CheckoutButton = styled.button`
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
   }
+`
+export const RadioButtons = styled.div`
+  align-self: flex-start;
+  padding: 4px; 
+   
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+`
+export const RadioInput = styled.input`
+  display: none;
+
+  &:checked + label {
+    background-color: #01cc65;
+    color: #FFFFFF;
+  }
+`
+export const RadioLabel = styled.label`
+  position: relative;
+  color: #01cc65;
+  font-family: "Montserrat";
+  font-size: 16px;
+  border: 2px solid #01cc65;
+  border-radius: 5px;
+  padding: 8px 16px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 `

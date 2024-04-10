@@ -16,7 +16,7 @@ const Delivery = ({ delivery, setDelivery }: { delivery: Delivery, setDelivery: 
       <InputWrapper>
         <Label>CEP</Label>
         <Input type='tel' placeholder="Digite seu CEP (somente números)" required
-          value={delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')} onChange={(e: any) => setDelivery({ ...delivery, zipCode: e.target.value})}
+          value={delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')} onChange={(e: any) => setDelivery({ ...delivery, zipCode: e.target.value })}
         />
       </InputWrapper>
 
@@ -44,7 +44,7 @@ const Delivery = ({ delivery, setDelivery }: { delivery: Delivery, setDelivery: 
 
       <InputWrapper>
         <Label>Complemento</Label>
-        <Input type='text' placeholder="Ex: Edifício Van Gogh, Apto 1302" 
+        <Input type='text' placeholder="Ex: Edifício Van Gogh, Apto 1302"
           value={delivery.complement} onChange={(e: any) => setDelivery({ ...delivery, complement: e.target.value })}
         />
       </InputWrapper>

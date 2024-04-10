@@ -7,6 +7,7 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
+  padding: 4px;
 `
 export const Label = styled.label`
   color: #13131A;
