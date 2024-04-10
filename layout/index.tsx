@@ -10,9 +10,11 @@ const Layout = ({ children }: PropsWithChildren) => {
 
 	const toggle = () => {
 		setIsOpen(!isOpen);
+    setCartOpen(false)
 	}
   const toggleCart = () => {
 		setCartOpen(!cartOpen);
+    setIsOpen(false)
 	}
 
   return (

@@ -6,28 +6,37 @@ interface Props {
 }
 
 export const Container = styled.nav<Props>`
-  background: #F1F1F1;
-  font-family: 'Poppins';
+  background: #F6F6F6;
+  padding: 50px 0;
 
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+  
   top: 0;
   right: 0;
   position: fixed;
   z-index: 999;
-  width: 100%;
+  width: 80%;
   height: 100%;
 
   opacity: ${({ isOpen }) => (isOpen ? '100%' : '0')};
-  right: ${({ isOpen }) => (isOpen ? '0' : '100%')};
+  right: ${({ isOpen }) => (isOpen ? '20%' : '100%')};
   transition: 0.7s ease-in-out;
+
+  border-radius: 0 10px 10px 0;
+  box-shadow: rgba(99, 99, 99, 0.8) 0px 2px 8px 0px;
 `
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  padding: 8px;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
 `
 export const Close = styled.div`
   position: absolute;
@@ -52,24 +61,27 @@ export const Logo = styled(Link)`
   -webkit-tap-highlight-color: transparent; 
 `
 export const Menu = styled.ul`
+  width: 100%;  
   list-style: none;
-  text-align: center;
+  text-align: left;
 
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
 `
 export const Item = styled.li`
   color: #13131A;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
-  text-decoration: none;
-  transition: 0.2s ease-in-out;
+  width: 80%;
+  
   text-decoration: none;
   cursor: pointer;
-
   -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
   user-select: none;
+  transition: 0.2s ease-in-out;
 
   &:hover {
     color: #EB5757;
@@ -86,32 +98,66 @@ export const Item = styled.li`
     transform: scaleX(1);
   }
 `
-
-
+export const PageLink = styled(Link)`
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+`
 export const BWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
 `
-export const SButton = styled.button`
-  background-color: #EB5757;
+export const CheckoutButton = styled(Link)`
+  width: 100%;
+  min-height: 3rem;
+  margin: 0;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+
+  background-color: #5A189A;
+  background-clip: padding-box;
+
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+
   color: #fff;
-  font-weight: 600;
+  font-family: "Montserrat";
   font-size: 16px;
-  text-transform: capitalize;
-  font-family: 'Poppins', sans-serif;
-
-  height: 40px;
-  width: 200px;
-  border-radius: 8px;
-  border: 0;
-
-  transition: 0.5s;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
   cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
   -webkit-tap-highlight-color: transparent;
 
   &:hover, &:focus {
-    box-shadow: inset 200px 0 0 0 #13131A;
+    background-color: #13131A;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: #5A189A;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
   }
 `

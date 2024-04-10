@@ -3,7 +3,7 @@ import { Brand, ImageWrapper, Price, Product, Quantity, TextWrapper, Title, Topi
 
 type Item = {
   item: {
-    id: number,
+    id: string,
     title: string,
     brand: string,
     imageUrl: string,

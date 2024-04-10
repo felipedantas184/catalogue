@@ -81,4 +81,6 @@ export const BrandTopic = styled.div`
   border: 1px solid #C4C4C4;
   border-radius: 10px;
   font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
 `

@@ -5,7 +5,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { FaPix } from "react-icons/fa6";
 
 type Item = {
-  id: number,
+  id: string,
   title: string,
   brand: string,
   imageUrl: string,
@@ -15,7 +15,7 @@ type Item = {
 }
 
 const Confirmation = () => {
-  const cart = useSelector((state: any) => state.cart);
+  const order = useSelector((state: any) => state.order);
 
   return (
     <Section>
@@ -24,35 +24,36 @@ const Confirmation = () => {
           <FaCheckCircle size={48} color="#08A045" />
           <Title>Seu pedido foi enviado!</Title>
           <Subtitle>Agora é só aguardar enquanto preparamos seus produtos.</Subtitle>
+          <Subtitle>Código do pedido: <strong>{order.id}</strong></Subtitle>
         </TextWrapper>
         <Summary>
           <SummaryTitle>Resumo do Pedido</SummaryTitle>
-          {cart.map((item: Item) => (
+          {order.cart.map((item: Item) => (
             <ProductSummary key={item.id} item={item} />
           ))}
           <Divider />
           <TopicWrapper>
             <TopicBold>Valor Total</TopicBold>
-            <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}</SpanBold>
+            <SpanBold>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(order.amount)}</SpanBold>
           </TopicWrapper>
         </Summary>
         <Summary>
           <SummaryTitle>Resumo da Entrega</SummaryTitle>
           <InfoWrapper>
             <Topic>Cidade</Topic>
-            <Span>Teresina - PI</Span>
+            <Span>{order.delivery.city} - {order.delivery.state}</Span>
           </InfoWrapper>
           <InfoWrapper>
             <Topic>Endereço</Topic>
-            <Span>Rua Professora Zaíra Freire, 647 - Gurupi</Span>
+            <Span>{order.delivery.address}, {order.delivery.number} - {order.delivery.district}</Span>
           </InfoWrapper>
           <InfoWrapper>
             <Topic>CEP</Topic>
-            <Span>64091-250</Span>
+            <Span>{order.delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')}</Span>
           </InfoWrapper>
           <InfoWrapper>
             <Topic>Complemento</Topic>
-            <Span>Sem complemento</Span>
+            <Span>{order.delivery.complement}</Span>
           </InfoWrapper>
         </Summary>
         <Summary>

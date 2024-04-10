@@ -2,12 +2,12 @@ import Link from "next/link";
 import styled from "styled-components";
 
 interface Props {
-  cartOpen: any
+  cartOpen: boolean
 }
 
 export const Container = styled.nav<Props>`
-  background: #F1F1F1;
-  padding: 50px 0;
+  background: #F6F6F6;
+  padding: 50px 0 25px 0;
 
   display: flex;
 	flex-direction: column;
@@ -17,12 +17,15 @@ export const Container = styled.nav<Props>`
   left: 0;
   position: fixed;
   z-index: 999;
-  width: 100vw;
-  height: 100vh;
+  width: 80%;
+  height: 100%;
 
   opacity: ${({ cartOpen }) => (cartOpen ? '100%' : '0')};
-  left: ${({ cartOpen }) => (cartOpen ? '0' : '100%')};
+  left: ${({ cartOpen }) => (cartOpen ? '20%' : '100%')};
   transition: 0.7s ease-in-out;
+
+  border-radius: 10px 0 0 10px;
+  box-shadow: rgba(99, 99, 99, 0.8) 0px 2px 8px 0px;
 `
 export const Wrapper = styled.div`
   width: 100%;
@@ -54,6 +57,20 @@ export const Title = styled.h1`
   font-size: 18px;
   font-weight: 600;
   align-self: flex-start;
+`
+export const ProductsWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 8px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: nowrap;
 `
 export const Divider = styled.div`
   width: 100%;

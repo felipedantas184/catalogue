@@ -9,6 +9,7 @@ import { addDoc, collection } from "firebase/firestore";
 import fireDB from "@/firebase/initFirebase";
 import { removeFromCart } from "@/redux/cart.slice";
 import { useRouter } from "next/router";
+import { addOrder } from "@/redux/order.slice";
 
 const Form = () => {
   const cart = useSelector((state: any) => state.cart);
@@ -32,7 +33,7 @@ const Form = () => {
   })
   const [paymentMethod, setPaymentMethod] = useState('Pix');
   const [mesage, setMesage] = useState('');
-  const cartOrder:any[] = []
+  const cartOrder: any[] = []
 
   useEffect(() => {
     var deliveryMesageComposure = '*_Informações da Entrega:_*%0A' + delivery.address + ', ' + delivery.number + ' - ' + delivery.complement + '%0A' + delivery.zipCode + '%0A' + delivery.city + ', ' + delivery.state
@@ -61,10 +62,10 @@ const Form = () => {
 
   const handleOrder = async (e: any) => {
     e.preventDefault()
-    cart.forEach((item : any) => {
+    cart.forEach((item: any) => {
       const obj = {
         id: item.id,
-        quantity: item.quantity, 
+        quantity: item.quantity,
       }
       cartOrder.push(obj)
     });
@@ -75,7 +76,24 @@ const Form = () => {
         cart: cartOrder,
         delivery: delivery,
         paymentMethod: paymentMethod,
-        amount: cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0),
+        amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0),
+      }).then(function (docRef) {
+        dispatch(addOrder({
+          id: docRef.id, 
+          personal: personal,
+          cart: cart,
+          delivery: delivery,
+          paymentMethod: paymentMethod,
+          amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0)
+        }))
+        localStorage.setItem("order", JSON.stringify({
+          id: docRef.id, 
+          personal: personal,
+          cart: cart,
+          delivery: delivery,
+          paymentMethod: paymentMethod,
+          amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0)
+        }))
       }).then(
         cart.map((item: any) => (
           dispatch(removeFromCart(item))
@@ -83,7 +101,7 @@ const Form = () => {
       )
       alert("Pedido eviado com sucesso!")
 
-      router.push({ pathname: '/' })
+      router.push({ pathname: '/confirmation' })
     } catch (error) {
       alert(error)
     }
@@ -99,11 +117,10 @@ const Form = () => {
       <Divider />
       <TopicWrapper>
         <Topic>Total</Topic>
-        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0))}</Price>
+        <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}</Price>
       </TopicWrapper>
       <CheckoutButton type="submit" >Adicionar Pedido</CheckoutButton>
-      <a href={`https://wa.me//5586995185757?text=${mesage}`}>Bora
-      </a>
+      {/** <a href={`https://wa.me//5586995185757?text=${mesage}`}>Bora</a>*/}
     </Wrapper>
   );
 }

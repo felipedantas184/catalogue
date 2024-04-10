@@ -1,5 +1,5 @@
 import { FaTimes } from "react-icons/fa";
-import { CheckoutButton, Close, Container, Divider, Price, TextWrapper, Title, Topic, TopicWrapper, Wrapper } from "./styles";
+import { CheckoutButton, Close, Container, Divider, Price, ProductsWrapper, TextWrapper, Title, Topic, TopicWrapper, Wrapper } from "./styles";
 import ProductCheckout from "@/components/Checkout/ProductCheckout";
 import { useSelector } from "react-redux";
 
@@ -22,19 +22,19 @@ const Cart = ({ cartOpen, toggleCart }: any) => {
         <Close onClick={toggleCart}>
           <FaTimes color="#13131A" />
         </Close>
-        <TextWrapper>
-          <Title>Carrinho</Title>
+        <Title>Carrinho</Title>
+        <ProductsWrapper>
           {cart.map((item: Item) => (
             <ProductCheckout key={item.id} item={item} />
           ))}
-        </TextWrapper>
+        </ProductsWrapper>
 
         <TextWrapper>
           <TopicWrapper>
             <Topic>Total</Topic>
             <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0))}</Price>
           </TopicWrapper>
-          <CheckoutButton href={'/checkout'} >Adicionar Pedido</CheckoutButton>
+          <CheckoutButton href={'/checkout'}>Finalizar Pedido</CheckoutButton>
         </TextWrapper>
       </Wrapper>
     </Container>

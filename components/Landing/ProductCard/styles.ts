@@ -15,6 +15,7 @@ export const Card = styled.div`
 export const ImageWrapper = styled(Link)`
   position: relative;
   width: 100%;
+  flex: 1;
 
   display: flex;
   justify-content: center;
