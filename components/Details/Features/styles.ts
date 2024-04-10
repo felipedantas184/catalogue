@@ -37,7 +37,7 @@ export const Topic = styled.span`
 `
 export const Paragraph = styled.p`
   color: #13131A;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
 `
 export const Span = styled.span`

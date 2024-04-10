@@ -35,7 +35,7 @@ const ProductList = ({products} : any) => {
         <BrandWrapper>
           <BrandTopic onClick={() => setBrandFilter('')}>Todos</BrandTopic>
           {products.map((product : Product) => product.brand).filter((brand : any, index : any, current_value : any) => current_value.indexOf(brand) === index).sort(byBrandName).map((brand : any) => (
-            <BrandTopic onClick={() => setBrandFilter(brand)}>{brand}</BrandTopic>
+            <BrandTopic key={brand}  onClick={() => setBrandFilter(brand)}>{brand}</BrandTopic>
           ))}
         </BrandWrapper>
         <Grid>
