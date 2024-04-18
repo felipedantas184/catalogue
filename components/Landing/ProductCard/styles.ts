@@ -112,4 +112,8 @@ export const AddButton = styled.button`
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
   }
+
+  &:disabled {
+    background-color: #545454;
+  }
 `

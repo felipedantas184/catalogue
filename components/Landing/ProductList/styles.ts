@@ -84,3 +84,37 @@ export const BrandTopic = styled.div`
   font-size: 14px;
   cursor: pointer;
 `
+export const RadioButtons = styled.div`
+  align-self: flex-start;
+  padding: 4px; 
+   
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+`
+export const RadioInput = styled.input`
+  display: none;
+
+  &:checked + label {
+    background-color: #13131A;
+    color: #FFFFFF;
+    border: 1px solid #C4C4C4;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+`
+export const RadioLabel = styled.label`
+  position: relative;
+  color: #13131A;
+  font-family: "Montserrat";
+  font-size: 16px;
+  border: 2px solid #C4C4C4;
+  border-radius: 5px;
+  padding: 8px 16px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+`

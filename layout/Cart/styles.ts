@@ -54,7 +54,7 @@ export const Close = styled.div`
 `
 export const Title = styled.h1`
   color: #13131A;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   align-self: flex-start;
 `
@@ -151,4 +151,44 @@ export const CheckoutButton = styled(Link)`
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
   }
+`
+export const EmptyWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+`
+export const ImageWrapper = styled.div`
+  position: relative;
+  width: 50%;
+  max-width: 250px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+
+  > div {
+    position: unset !important;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+    transition: transform 0.5s ease-in-out;
+  }
+`
+export const Span = styled.span`
+  color: #13131A;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
 `

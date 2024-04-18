@@ -11,12 +11,27 @@ type Delivery = {
 }
 
 const Delivery = ({ delivery, setDelivery }: { delivery: Delivery, setDelivery: any }) => {
+  const checkCEP = async (e: any) => {
+    try {
+      if (!e.target.value) return; 
+      const cep = e.target.value.replace(/\D/g, '');
+      await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
+        console.log(data);
+        setDelivery({...delivery, address: data.logradouro, district: data.bairro, city: data.localidade, state: data.uf})
+      })
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
+
   return (
     <>
       <InputWrapper>
         <Label>CEP</Label>
         <Input type='tel' placeholder="Digite seu CEP (somente números)" required
           value={delivery.zipCode.replace(/(\d{5})(\d{3})/, '$1-$2')} onChange={(e: any) => setDelivery({ ...delivery, zipCode: e.target.value })}
+          onBlur={checkCEP}
         />
       </InputWrapper>
 

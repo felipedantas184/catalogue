@@ -13,6 +13,7 @@ type Item = {
     description: string,
     price: number,
     quantity: number,
+    stock: number,
   }
 }
 
@@ -31,7 +32,7 @@ const ProductCheckout = ({item} : Item) => {
         <Buttons>
           <QntButton onClick={() => dispatch(decrementQuantity(item.id))}><FaMinusCircle size={16} color='#13131A' /></QntButton>
           <p>{item.quantity}</p>
-          <QntButton onClick={() => dispatch(incrementQuantity(item.id))}><FaPlusCircle size={16} color='#13131A' /></QntButton>
+          <QntButton disabled={item.quantity >= item.stock} onClick={() => dispatch(incrementQuantity(item.id))}><FaPlusCircle size={16} color={(item.quantity >= item.stock) ? '$D4D4D4' : '#13131A'} /></QntButton>
         </Buttons>
       </TextWrapper>
     </Product>

@@ -1,5 +1,5 @@
 export const sendOrderEmail = async (data : any) =>
-  fetch("/api/oder", {
+  fetch("/api/order", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

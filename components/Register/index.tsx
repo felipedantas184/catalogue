@@ -6,15 +6,23 @@ import { addDoc, collection } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { v4 } from "uuid";
 
+type Product = {
+  title: string,
+  brand: string,
+  description: string,
+  price: number,
+  stock: number,
+}
+
 const Register = () => {
   const router = useRouter()
   const [imageUpload, setImageUpload] = useState<any>(null);
-  const [newProduct, setNewProduct] = useState({
+  const [newProduct, setNewProduct] = useState<Product>({
     title: '',
     brand: '',
     description: '',
-    price: undefined,
-    stock: undefined,
+    price: 0,
+    stock: 0,
   })
 
   function handleChange(event: any) {

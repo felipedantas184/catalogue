@@ -5,7 +5,7 @@ import Personal from "./Personal";
 import { CheckoutButton, Divider, Price, RadioButtons, RadioInput, RadioLabel, Title, Topic, TopicWrapper, Wrapper } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { sendOrderEmail } from "@/lib/api";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import fireDB from "@/firebase/initFirebase";
 import { removeFromCart } from "@/redux/cart.slice";
 import { useRouter } from "next/router";
@@ -49,19 +49,19 @@ const Form = () => {
 
   }, [cart, delivery, personal])
 
-  /**async function handleOrder() {
+  async function handleOrderEmail() {
     try {
         sendOrderEmail({
           orderId: "Código da Compra",
           name: "Nome",
           email: "Email",
           amount: 'Valor Total',
-          observations: 'Observações'
+          observations: 'Observações',
         })
     } catch (error) {
       alert(error)
     }
-  } */
+  }
 
   const handleOrder = async (e: any) => {
     e.preventDefault()
@@ -97,6 +97,11 @@ const Form = () => {
           paymentMethod: paymentMethod,
           amount: cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0)
         }))
+        cart.map((item : any) => (
+          updateDoc(doc(fireDB, "products", item.id), {
+            stock: item.stock-item.quantity,
+          })
+        ))
       }).then(
         cart.map((item: any) => (
           dispatch(removeFromCart(item))
@@ -136,6 +141,7 @@ const Form = () => {
       </TopicWrapper>
       <CheckoutButton type="submit" >Adicionar Pedido</CheckoutButton>
       {/** <a href={`https://wa.me//5586995185757?text=${mesage}`}>Bora</a>*/}
+      <div onClick={handleOrderEmail}>Bora</div>
     </Wrapper>
   );
 }

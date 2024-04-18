@@ -76,4 +76,8 @@ export const QntButton = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `

@@ -1,7 +1,8 @@
 import { FaTimes } from "react-icons/fa";
-import { CheckoutButton, Close, Container, Divider, Price, ProductsWrapper, TextWrapper, Title, Topic, TopicWrapper, Wrapper } from "./styles";
+import { CheckoutButton, Close, Container, Divider, EmptyWrapper, ImageWrapper, Price, ProductsWrapper, Span, TextWrapper, Title, Topic, TopicWrapper, Wrapper } from "./styles";
 import ProductCheckout from "@/components/Checkout/ProductCheckout";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
 type Item = {
   id: number,
@@ -11,6 +12,7 @@ type Item = {
   description: string,
   price: number,
   quantity: number,
+  stock: number,
 }
 
 const Cart = ({ cartOpen, toggleCart }: any) => {
@@ -23,18 +25,31 @@ const Cart = ({ cartOpen, toggleCart }: any) => {
           <FaTimes color="#13131A" />
         </Close>
         <Title>Carrinho</Title>
-        <ProductsWrapper>
-          {cart.map((item: Item) => (
-            <ProductCheckout key={item.id} item={item} />
-          ))}
-        </ProductsWrapper>
 
+        {(cart.length === 0) ? (
+          <EmptyWrapper>
+            <ImageWrapper>
+              <Image src={'/assets/icons/emptyCart.svg'} alt={'product.titl'} fill className={'image'} />
+            </ImageWrapper>
+            <Span>Seu carrinho está vazio</Span>
+          </EmptyWrapper>
+        ) : (
+          <ProductsWrapper>
+            {cart.map((item: Item) => (
+              <ProductCheckout key={item.id} item={item} />
+            ))}
+          </ProductsWrapper>
+        )}
         <TextWrapper>
           <TopicWrapper>
             <Topic>Total</Topic>
-            <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc:any, curr:any) => acc + curr.price*curr.quantity, 0))}</Price>
+            <Price>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', }).format(cart.reduce((acc: any, curr: any) => acc + curr.price * curr.quantity, 0))}</Price>
           </TopicWrapper>
-          <CheckoutButton href={'/checkout'}>Finalizar Pedido</CheckoutButton>
+          {(cart.length === 0) ? (
+            <CheckoutButton href={'/'} onClick={toggleCart} >Adicionar Itens</CheckoutButton>
+          ) : (
+            <CheckoutButton href={'/checkout'}>Finalizar Pedido</CheckoutButton>
+          )}
         </TextWrapper>
       </Wrapper>
     </Container>
