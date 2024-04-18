@@ -18,6 +18,7 @@ const Order = () => {
     description: string,
     price: number,
     quantity: number,
+    stock: number,
   }
 
   return (
